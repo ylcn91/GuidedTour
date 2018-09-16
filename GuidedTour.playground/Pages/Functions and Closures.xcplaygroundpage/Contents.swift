@@ -308,7 +308,7 @@ func levelCost(heights: [Int], maxJump: Int) -> Int {
 }
 
 
-
+// Done
 
 
 
@@ -363,6 +363,25 @@ func returnFifteen() -> Int {
 }
 returnFifteen()
 
+// nested function
+
+func operate(with symbol:String) -> (Int, Int) -> Int {
+    
+    func add(num1:Int, num2:Int) -> Int {
+        return num1 + num2
+    }
+    
+    func subtract(num1:Int, num2:Int) -> Int {
+        return num1 - num2
+    }
+    let operation = (symbol == "+") ?  add : subtract
+    return operation
+}
+
+let operation = operate(with: "+")
+let result = operation(2, 3)
+print(result)
+
 //: Functions are a first-class type. This means that a function can return another function as its value.
 //:
 func makeIncrementer() -> ((Int) -> Int) {
@@ -373,6 +392,20 @@ func makeIncrementer() -> ((Int) -> Int) {
 }
 var increment = makeIncrementer()
 increment(7)
+
+
+// first class type - return another function and its value experiment
+func makeLogger() -> (String) -> String {
+    func log(s:String) -> String {
+        print(s)
+        return(s)
+    }
+    return(log)
+}
+
+let myCustomLog = makeLogger()
+myCustomLog("I am a message") // I am a message
+
 
 //: A function can take another function as one of its arguments.
 //:
@@ -390,12 +423,32 @@ func lessThanTen(number: Int) -> Bool {
 var numbers = [20, 19, 7, 12]
 hasAnyMatches(list: numbers, condition: lessThanTen)
 
+// done
+
+// Closure expressions
+// -> { (params) -> return_type in statements }
+
 //: Functions are actually a special case of closures: blocks of code that can be called later. The code in a closure has access to things like variables and functions that were available in the scope where the closure was created, even if the closure is in a different scope when it is executed—you saw an example of this already with nested functions. You can write a closure without a name by surrounding code with braces (`{}`). Use `in` to separate the arguments and return type from the body.
 //:
 numbers.map({ (number: Int) -> Int in
     let result = 3 * number
     return result
 })
+
+// Rewrite the closure to return zero for all odd numbers.
+
+
+//Experiment
+
+numbers.map({ (number: Int) -> Int in
+    var result = number
+    if result % 2 != 0 {
+        result = 0
+    }
+    return result
+    
+})
+
 
 //: - Experiment:
 //: Rewrite the closure to return zero for all odd numbers.
@@ -405,11 +458,22 @@ numbers.map({ (number: Int) -> Int in
 let mappedNumbers = numbers.map({ number in 3 * number })
 print(mappedNumbers)
 
+let nums = [3, 6, 91, 61]
+
+// experiment 
+func doubler(a:Int) -> Int{
+    return (a * 2)
+}
+
+let doubleNum = nums.map(doubler) // [6, 12, 182, 122]
+
 //: You can refer to parameters by number instead of by name—this approach is especially useful in very short closures. A closure passed as the last argument to a function can appear immediately after the parentheses. When a closure is the only argument to a function, you can omit the parentheses entirely.
 //:
 let sortedNumbers = numbers.sorted { $0 > $1 }
 print(sortedNumbers)
 
+
+// Done section 3
 
 
 //: [Previous](@previous) | [Next](@next)
