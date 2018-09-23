@@ -23,6 +23,19 @@ enum Rank: Int {
 }
 let ace = Rank.ace
 let aceRawValue = ace.rawValue
+//Experiment
+func compareTwo(_ firstRank : Rank,_ secondRank: Rank) -> Bool {
+    
+    return first.rawValue == second.rawValue
+}
+var first = Rank.ace
+var second = Rank.jack
+
+compareTwo(first, second)
+
+compareTwo(Rank.eight, Rank.four)
+
+
 
 //: - Experiment:
 //: Write a function that compares two `Rank` values by comparing their raw values.
@@ -32,7 +45,7 @@ let aceRawValue = ace.rawValue
 //: Use the `init?(rawValue:)` initializer to make an instance of an enumeration from a raw value. It returns either the enumeration case matching the raw value or `nil` if there is no matching `Rank`.
 //:
 if let convertedRank = Rank(rawValue: 3) {
-    let threeDescription = convertedRank.simpleDescription()
+    let _ = convertedRank.simpleDescription()
 }
 
 //: The case values of an enumeration are actual values, not just another way of writing their raw values. In fact, in cases where there isn’t a meaningful raw value, you don’t have to provide one.
@@ -51,9 +64,29 @@ enum Suit {
                 return "clubs"
         }
     }
+    //Experiment
+    func color() -> String {
+        switch self {
+        case .spades:
+            return "black"
+        case .clubs:
+            return "black"
+        case .diamonds:
+            return "red"
+        case .hearts:
+            return "red"
+        }
+        
+    }
 }
 let hearts = Suit.hearts
 let heartsDescription = hearts.simpleDescription()
+
+let diamonds = Suit.diamonds
+let diamondDesc = diamonds.simpleDescription()
+let diamondColor = diamonds.color()
+
+
 
 //: - Experiment:
 //: Add a `color()` method to `Suit` that returns “black” for spades and clubs, and returns “red” for hearts and diamonds.
@@ -63,18 +96,25 @@ let heartsDescription = hearts.simpleDescription()
 //: If an enumeration has raw values, those values are determined as part of the declaration, which means every instance of a particular enumeration case always has the same raw value. Another choice for enumeration cases is to have values associated with the case—these values are determined when you make the instance, and they can be different for each instance of an enumeration case. You can think of the associated values as behaving like stored properties of the enumeration case instance. For example, consider the case of requesting the sunrise and sunset times from a server. The server either responds with the requested information, or it responds with a description of what went wrong.
 //:
 enum ServerResponse {
-    case result(String, String)
+    case result(String,String,String)
     case failure(String)
+    //Experiment
+    case timedOut(String)
 }
 
-let success = ServerResponse.result("6:00 am", "8:09 pm")
+let success = ServerResponse.result("6:00 am", "8:09 pm", "24 hours")
 let failure = ServerResponse.failure("Out of cheese.")
+//Experiment
+let timedOut = ServerResponse.timedOut("server down for now")
 
 switch success {
-    case let .result(sunrise, sunset):
-        print("Sunrise is at \(sunrise) and sunset is at \(sunset).")
+    case let .result(sunrise, sunset, day):
+        print("Sunrise is at \(sunrise) and sunset is at \(sunset) and a day \(day).")
     case let .failure(message):
         print("Failure...  \(message)")
+    //Experiment
+    case let .timedOut(timedOut):
+        print("Timed Out..100 sec \(timedOut)")
 }
 
 //: - Experiment:
@@ -87,12 +127,21 @@ switch success {
 struct Card {
     var rank: Rank
     var suit: Suit
+    
+    
     func simpleDescription() -> String {
         return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
     }
-}
+    //Experiment
+    
+    // "TO DO"
+ 
 let threeOfSpades = Card(rank: .three, suit: .spades)
 let threeOfSpadesDescription = threeOfSpades.simpleDescription()
+
+
+// Done section 5
+
 
 //: - Experiment:
 //: Add a method to `Card` that creates a full deck of cards, with one card of each combination of rank and suit.

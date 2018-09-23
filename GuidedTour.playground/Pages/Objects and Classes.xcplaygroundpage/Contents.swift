@@ -7,7 +7,15 @@ class Shape {
     func simpleDescription() -> String {
         return "A shape with \(numberOfSides) sides."
     }
+    // Experiment
+
+   func calculateSquare(_ a : Int) -> Int {
+        return a * a
+    }
+  
 }
+
+
 
 //: - Experiment:
 //: Add a constant property with `let`, and add another method that takes an argument.
@@ -18,6 +26,10 @@ var shape = Shape()
 shape.numberOfSides = 7
 var shapeDescription = shape.simpleDescription()
 
+//Experiment
+
+let sh = Shape()
+sh.calculateSquare(3)
 //: This version of the `Shape` class is missing something important: an initializer to set up the class when an instance is created. Use `init` to create one.
 //:
 class NamedShape {
@@ -61,6 +73,28 @@ class Square: NamedShape {
 let test = Square(sideLength: 5.2, name: "my test square")
 test.area()
 test.simpleDescription()
+
+// Experiment Circle
+
+class Circle: NamedShape {
+    var radius: Int
+    
+    init(radius: Int, name: String) {
+    self.radius = radius
+    super.init(name: name)
+    }
+ func area() -> Double {
+        return Double(radius * radius) * Double.pi
+    }
+    override func simpleDescription() -> String {
+        return "\(name)"
+    }
+}
+
+let testCircle = Circle(radius: 4, name: "Test Circle")
+testCircle.area()
+testCircle.simpleDescription()
+
 
 //: - Experiment:
 //: Make another subclass of `NamedShape` called `Circle` that takes a radius and a name as arguments to its initializer. Implement an `area()` and a `simpleDescription()` method on the `Circle` class.
@@ -128,11 +162,13 @@ print(triangleAndSquare.triangle.sideLength)
 triangleAndSquare.square = Square(sideLength: 50, name: "larger square")
 print(triangleAndSquare.triangle.sideLength)
 
+// willSet / didSet
+
 //: When working with optional values, you can write `?` before operations like methods, properties, and subscripting. If the value before the `?` is `nil`, everything after the `?` is ignored and the value of the whole expression is `nil`. Otherwise, the optional value is unwrapped, and everything after the `?` acts on the unwrapped value. In both cases, the value of the whole expression is an optional value.
 //:
 let optionalSquare: Square? = Square(sideLength: 2.5, name: "optional square")
 let sideLength = optionalSquare?.sideLength
 
-
+// Done 
 
 //: [Previous](@previous) | [Next](@next)
